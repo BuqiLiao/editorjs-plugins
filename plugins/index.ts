@@ -1,2 +1,2 @@
-export { default as ImageTool } from "./image/src/index";
-export { default as AttachesTool } from "./attaches/src/index";
+export { default as ImageTool } from "./image/index";
+export { default as AttachesTool } from "./attaches/index";

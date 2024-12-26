@@ -7,6 +7,15 @@ const NODE_ENV = process.argv.mode || "development";
 const VERSION = pkg.version;
 
 export default {
+  define: {
+    NODE_ENV: JSON.stringify(NODE_ENV),
+    VERSION: JSON.stringify(VERSION),
+  },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./plugins"),
+    },
+  },
   build: {
     copyPublicDir: false,
     lib: {
@@ -14,10 +23,6 @@ export default {
       name: "EditorPlugins",
       fileName: "index",
     },
-  },
-  define: {
-    NODE_ENV: JSON.stringify(NODE_ENV),
-    VERSION: JSON.stringify(VERSION),
   },
 
   plugins: [

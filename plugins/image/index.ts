@@ -1,6 +1,6 @@
 import "./index.css";
 import { merge } from "lodash-es";
-import { blobToBase64 } from "../../utils/file";
+import { blobToBase64 } from "@/utils/file";
 import {
   IconAddBorder,
   IconStretch,

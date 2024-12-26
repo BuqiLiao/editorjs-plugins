@@ -1,6 +1,6 @@
 import ajax from "@codexteam/ajax";
 import { IconPicture } from "@codexteam/icons";
-import { make } from "../../utils/dom";
+import { make } from "@/utils/dom";
 import type { API } from "@editorjs/editorjs";
 import type { ImageToolData, ImageConfig } from "./types/types";
 

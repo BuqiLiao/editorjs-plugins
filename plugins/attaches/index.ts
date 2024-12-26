@@ -9,7 +9,7 @@ import type {
 
 import { merge } from "lodash-es";
 import Ui from "./ui";
-import { blobToBase64, getExtensionFromFileName } from "../../utils/file";
+import { blobToBase64, getExtensionFromFileName } from "@/utils/file";
 import type { AttachesToolData, AttachesToolConfig } from "./types/types";
 import { IconFile } from "@codexteam/icons";
 
