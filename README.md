@@ -1,6 +1,6 @@
 # Editor.js Plugins
 
-This repository contains plugins for [Editor.js](https://editorjs.io/), a modular, extendable content editing library. Currently, it includes the `ImageTool` and `AttachesTool` plugins, which are designed to enhance the user experience when working with images and attachments.
+This repository contains plugins for [Editor.js](https://editorjs.io/), a modular, extendable content editing library. Currently, it includes the `ImageTool`, `AttachesTool`, and `MathTool` plugins, which are designed to enhance the user experience when working with images, attachments, and mathematical formulas.
 
 ---
 
@@ -8,6 +8,7 @@ This repository contains plugins for [Editor.js](https://editorjs.io/), a modula
 
 - **ImageTool**: Upload and manage images with features such as captions, border styles, and background options.
 - **AttachesTool**: Manage file attachments with features like custom uploading, download buttons, and file size display.
+- **MathTool**: Create and edit mathematical formulas with a user-friendly interface.
 
 ---
 
@@ -104,6 +105,27 @@ const editor = new EditorJS({
             });
           },
         },
+      },
+    },
+  },
+});
+```
+
+### MathTool
+
+To use the `MathTool`, import it and configure it in the Editor.js tools:
+
+```javascript
+import EditorJS from "@editorjs/editorjs";
+import MathTool from "editorjs-plugins/plugins/math";
+
+const editor = new EditorJS({
+  holder: "editorjs",
+  tools: {
+    math: {
+      class: MathTool,
+      config: {
+        placeholder: "Enter formula",
       },
     },
   },

@@ -10,8 +10,26 @@ import type {
 import { merge } from "lodash-es";
 import Ui from "./ui";
 import { blobToBase64, getExtensionFromFileName } from "@/utils/file";
-import type { AttachesToolData, AttachesToolConfig } from "./types/types";
 import { IconFile } from "@codexteam/icons";
+
+export type AttachesToolData<AdditionalFileData = {}> = {
+  file: {
+    url: string;
+    size: number;
+    name: string;
+    extension: string;
+  } & AdditionalFileData;
+  title: string;
+};
+
+export interface AttachesToolConfig {
+  types: string;
+  buttonContent: string;
+  errorMessage: string;
+  uploader?: {
+    uploadByFile?: (file: Blob) => Promise<void>;
+  };
+}
 
 type AttachesToolConstructorOptions = BlockToolConstructorOptions<
   AttachesToolData,
@@ -79,6 +97,10 @@ export default class AttachesTool implements BlockTool {
 
   public render() {
     return this.ui.render(this.data);
+  }
+
+  public rendered(): void {
+    this.ui.nodes.uploadButton.click();
   }
 
   public validate(savedData: AttachesToolData): boolean {

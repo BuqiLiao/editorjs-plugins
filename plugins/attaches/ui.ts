@@ -3,7 +3,7 @@ import { IconChevronDown, IconFile } from "@codexteam/icons";
 import { make, moveCaretToTheEnd } from "@/utils/dom";
 import { getExtensionFromFileName, base64ToBlob } from "@/utils/file";
 import type { API } from "@editorjs/editorjs";
-import type { AttachesToolData, AttachesToolConfig } from "./types/types";
+import type { AttachesToolData, AttachesToolConfig } from "./index";
 
 enum UiState {
   Empty = "empty",

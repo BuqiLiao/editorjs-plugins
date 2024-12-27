@@ -211,7 +211,6 @@ export default class ImageTool implements BlockTool {
    * Renders Block content
    */
   public render(): HTMLDivElement {
-    console.log("render ImageTool", this.data);
     if (this.data.file?.url) {
       this.ui.fillImage(this.data.file.url);
     }
@@ -221,6 +220,7 @@ export default class ImageTool implements BlockTool {
     if (this.tunesMap.get("withCaption")) {
       this.ui.applyTune("withCaption", true);
     }
+    this.api.blocks.insert("paragraph");
 
     return this.ui.render(this.data) as HTMLDivElement;
   }

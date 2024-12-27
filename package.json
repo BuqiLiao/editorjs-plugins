@@ -7,7 +7,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "description": "EditorJS plugins for editorjs",
   "files": [
     "dist"
@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@codexteam/icons": "^0.3.0",
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.17.21",
+    "mathlive": "^0.103.0"
   }
 }

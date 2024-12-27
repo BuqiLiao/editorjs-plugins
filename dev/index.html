@@ -7,16 +7,15 @@
   </head>
   <body>
     <div id="editorjs"></div>
-    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest/dist/editor.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@editorjs/editorjs@latest"></script>
     <script type="module">
-      import { ImageTool, AttachesTool } from "../dist/index.mjs";
+      import { ImageTool, AttachesTool, MathTool } from "../dist/index.mjs";
       const editor = new EditorJS({
         holder: "editorjs",
         tools: {
           image: {
             class: ImageTool,
             config: {
-              types: "video/*",
               uploader: {
                 uploadByFile: (file) => {
                   console.log(file);
@@ -43,10 +42,26 @@
               },
             },
           },
+          math: {
+            class: MathTool,
+            config: {
+              placeholder: "Enter formula",
+            },
+          },
+        },
+        data: {
+          blocks: [
+            {
+              type: "math",
+              data: {
+                formula: `x=\\frac{-b\\pm\\sqrt{b^2-4ac}}{2a}`,
+              },
+            },
+          ],
         },
         onChange: async (api, event) => {
-          // let content = await editor.save();
-          console.log(event);
+          let content = await editor.save();
+          console.log(content);
         },
       });
     </script>
