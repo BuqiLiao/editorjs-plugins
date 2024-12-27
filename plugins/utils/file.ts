@@ -1,7 +1,53 @@
+interface SelectFilesConfig {
+  multiple?: boolean;
+  accept?: string;
+  capture?: string; // Optional: for capturing media directly
+}
+
+/**
+ * Promisified file selector utility function.
+ */
+export const selectFiles = (
+  config: SelectFilesConfig = {}
+): Promise<FileList> => {
+  return new Promise<FileList>((resolve, reject) => {
+    const inputElement = document.createElement("input");
+    inputElement.type = "file";
+    inputElement.style.display = "none";
+
+    if (config.multiple) {
+      inputElement.multiple = true;
+    }
+    if (config.accept) {
+      inputElement.accept = config.accept;
+    }
+    if (config.capture) {
+      inputElement.capture = config.capture;
+    }
+
+    document.body.appendChild(inputElement);
+
+    // Define cleanup function
+    const cleanup = () => {
+      inputElement.removeEventListener("change", onChange);
+      document.body.removeChild(inputElement);
+    };
+
+    // Handle file selection
+    const onChange = (event: Event) => {
+      const files = (event.target as HTMLInputElement).files;
+      files ? resolve(files) : reject(new Error("No files selected"));
+      cleanup();
+    };
+
+    inputElement.addEventListener("change", onChange);
+
+    inputElement.click();
+  });
+};
+
 /**
  * Return the file extension from a file name
- * @param name - The file name
- * @returns The file extension or an empty string if no extension exists
  */
 export function getExtensionFromFileName(name: string): string {
   if (typeof name !== "string" || !name.trim()) {

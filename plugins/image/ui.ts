@@ -1,8 +1,8 @@
-import ajax from "@codexteam/ajax";
 import { IconPicture } from "@codexteam/icons";
 import { make } from "@/utils/dom";
+import { selectFiles } from "@/utils/file";
 import type { API } from "@editorjs/editorjs";
-import type { ImageToolData, ImageConfig } from "./types/types";
+import type { ImageToolData, ImageConfig, InnerImageConfig } from "./index";
 
 /**
  * Enumeration representing the different states of the UI.
@@ -70,7 +70,7 @@ interface ConstructorParams {
   /**
    * Configuration for the image.
    */
-  config: ImageConfig;
+  config: InnerImageConfig;
   /**
    * Callback function for selecting a file.
    */
@@ -101,7 +101,7 @@ export default class Ui {
   /**
    * Configuration for the image tool.
    */
-  private config: ImageConfig;
+  private config: InnerImageConfig;
 
   /**
    * Callback function for selecting a file.
@@ -270,13 +270,12 @@ export default class Ui {
       this.config.buttonContent
     )}`;
     button.addEventListener("click", () => {
-      ajax
-        .selectFiles({
-          accept: this.config.types,
-        })
-        .then((files) => {
-          this.onSelectFile(files[0]);
-        });
+      selectFiles({
+        accept: this.config.types,
+        multiple: true,
+      }).then((files) => {
+        this.onSelectFile(files[0]);
+      });
     });
 
     return button;

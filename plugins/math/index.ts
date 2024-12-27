@@ -1,8 +1,9 @@
-import "./index.css";
-import "mathlive/fonts.css";
 import { merge } from "lodash-es";
 import { make } from "@/utils/dom";
 import { MathfieldElement } from "mathlive";
+
+import "./index.css";
+import "mathlive/fonts.css";
 
 import type {
   API,
@@ -38,6 +39,7 @@ interface Nodes {
 }
 
 MathfieldElement.soundsDirectory = null;
+MathfieldElement.fontsDirectory = null;
 
 export default class MathTool implements BlockTool {
   private api: API;

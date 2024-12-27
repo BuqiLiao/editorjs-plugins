@@ -21,14 +21,61 @@ import type {
   PasteEvent,
   PatternPasteEventDetail,
   FilePasteEventDetail,
+  HTMLPasteEventDetail,
 } from "@editorjs/editorjs";
-import type {
-  ActionConfig,
-  ImageToolData,
-  ImageConfig,
-  HTMLPasteEventDetailExtended,
-  FeaturesConfig,
-} from "./types/types";
+
+export interface ActionConfig {
+  name: string;
+  icon: string;
+  title: string;
+  toggle?: boolean;
+  action: (ui: Ui, options: BlockToolConstructorOptions) => void;
+}
+
+export type ImageToolData<Actions = {}, AdditionalFileData = {}> = {
+  file: {
+    url: string;
+  } & AdditionalFileData;
+  caption: string;
+} & FeaturesConfig &
+  (Actions extends Record<string, boolean> ? Actions : {});
+
+export type FeaturesConfig = {
+  withBackground?: boolean;
+  withBorder?: boolean;
+  withCaption?: boolean;
+  stretched?: boolean;
+};
+
+export interface ImageConfig {
+  types?: string;
+  captionPlaceholder?: string;
+  buttonContent?: string;
+  uploader?: {
+    uploadByFile?: (file: File) => Promise<void>;
+    uploadByUrl?: (url: string) => Promise<void>;
+  };
+  actions?: ActionConfig[];
+  features?: FeaturesConfig;
+}
+
+export interface InnerImageConfig extends ImageConfig {
+  types: string;
+  captionPlaceholder: string;
+  buttonContent: string;
+  uploader?: {
+    uploadByFile?: (file: File) => Promise<void>;
+    uploadByUrl?: (url: string) => Promise<void>;
+  };
+  actions: ActionConfig[];
+  features: FeaturesConfig;
+}
+
+export interface HTMLPasteEventDetailExtended extends HTMLPasteEventDetail {
+  data: {
+    src: string;
+  } & HTMLElement;
+}
 
 type ImageToolConstructorOptions = BlockToolConstructorOptions<
   ImageToolData,
@@ -52,7 +99,7 @@ export default class ImageTool implements BlockTool {
   /**
    * Configuration for the ImageTool
    */
-  private config: ImageConfig = {
+  private config: InnerImageConfig = {
     types: "image/*",
     captionPlaceholder: "Caption",
     buttonContent: "Select an Image",

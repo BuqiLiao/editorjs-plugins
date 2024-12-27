@@ -1,7 +1,10 @@
-import ajax from "@codexteam/ajax";
 import { IconChevronDown, IconFile } from "@codexteam/icons";
 import { make, moveCaretToTheEnd } from "@/utils/dom";
-import { getExtensionFromFileName, base64ToBlob } from "@/utils/file";
+import {
+  selectFiles,
+  getExtensionFromFileName,
+  base64ToBlob,
+} from "@/utils/file";
 import type { API } from "@editorjs/editorjs";
 import type { AttachesToolData, AttachesToolConfig } from "./index";
 
@@ -231,13 +234,12 @@ export default class Ui {
       this.config.buttonContent
     )}`;
     button.addEventListener("click", () => {
-      ajax
-        .selectFiles({
-          accept: this.config.types ?? "image/*",
-        })
-        .then((files) => {
-          this.onSelectFile(files[0]);
-        });
+      selectFiles({
+        accept: this.config.types ?? "image/*",
+        multiple: true,
+      }).then((files) => {
+        this.onSelectFile(files[0]);
+      });
     });
 
     return button;
